@@ -1,13 +1,157 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+		'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+		'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.App {
+	text-align: center;
+	background-color: #ffffff;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(30px + 2vmin);
+	color: white;
+}
+
+.overlay {
+	position: fixed; /* Sit on top of the page content */
+	width: 100%; /* Full width (cover the whole page) */
+	height: 100%; /* Full height (cover the whole page) */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ffffff00; /* Black background with opacity */
+	z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+	cursor: pointer; /* Add a pointer on hover */
+}
+
+.hidden {
+	display: none;
+}
+
+.game-container {
+	width: 70vh;
+	height: 80vh;
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	grid-column-gap: 30px;
+	grid-row-gap: 10px;
+	width: 100%;
+	height: 100%;
+}
+
+.card {
+	width: 100%;
+	height: 100%;
+	background: #ffffff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	perspective: 1000px;
+}
+
+.card-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
+}
+
+.card-flip {
+	transform: rotateY(-180deg);
+}
+
+.card-front {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	backface-visibility: hidden;
+	/* background */
+	background-image: linear-gradient(
+		45deg,
+		#ffe082 16.67%,
+		#ffd54f 16.67%,
+		#ffd54f 33.33%,
+		#ffca28 33.33%,
+		#ffca28 50%,
+		#ffe082 50%,
+		#ffe082 66.67%,
+		#ffd54f 66.67%,
+		#ffd54f 83.33%,
+		#ffca28 83.33%,
+		#ffca28 100%
+	);
+	background-size: 150px 150px;
+	/* shadow */
+	-webkit-box-shadow: 5px 5px 5px 0px rgba(29, 29, 29, 0.466);
+	-moz-box-shadow: 5px 5px 5px 0px rgba(29, 29, 29, 0.466);
+	box-shadow: 5px 5px 5px 0px rgba(29, 29, 29, 0.466);
+}
+
+.card-back {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	border-radius: 5px;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	backface-visibility: hidden;
+	color: white;
+	transform: rotateY(-180deg);
+	background: #232526; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to right,
+		#414345,
+		#232526
+	); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to right,
+		#414345,
+		#232526
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	-webkit-box-shadow: 5px 5px 5px 0px rgba(167, 114, 0, 0.336);
+	-moz-box-shadow: 5px 5px 5px 0px rgba(167, 114, 0, 0.336);
+	box-shadow: 5px 5px 5px 0px rgba(167, 114, 0, 0.336);
+}
+
+@media only screen and (max-width: 600px) {
+	body .game-container {
+		-webkit-transform: scale(0.67);
+		-moz-transform: scale(0.67);
+		transform: scale(0.67);
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	body .game-container {
+		-webkit-transform: scale(0.57);
+		-moz-transform: scale(0.57);
+		transform: scale(0.57);
+	}
 }
