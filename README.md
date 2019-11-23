@@ -5,5 +5,6 @@ A simple memory card game made in reactjs
 # Play by running
 
 ```bash
+npm install
 npm start
 ```
