@@ -8,3 +8,7 @@ A simple memory card game made in reactjs
 npm install
 npm start
 ```
+
+# demo
+
+![demo](demo.gif)
