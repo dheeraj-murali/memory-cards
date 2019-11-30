@@ -1,6 +1,6 @@
 {
 	"name": "memory-cards",
-	"version": "0.2.3",
+	"version": "0.4.3",
 	"private": true,
 	"dependencies": {
 		"react": "^16.12.0",
