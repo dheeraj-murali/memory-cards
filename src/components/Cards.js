@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import icons from '../config/icons';
 
-function Cards({ gameStart, gameOver, setGameOver, setGameStart }) {
+function Cards({ state, dispatch }) {
 	// shuffle any array
 	const shuffle = (array) => {
+		console.log('shuffling');
 		for (let i = array.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
 			[array[i], array[j]] = [array[j], array[i]];
@@ -14,13 +15,19 @@ function Cards({ gameStart, gameOver, setGameOver, setGameStart }) {
 	};
 
 	// get random shuffles list of icons
-	const [shuffledIcons] = useState(() => shuffle(icons));
+	const [shuffledIcons, setShuffledIcons] = useState(() => shuffle(icons));
 	// the set of cards for the game
 	const [gameCards, setGameCards] = useState([]);
 	// keep track of open cards
 	const [openCards, setOpenCards] = useState([]);
 
-	// generate cards for the game
+	useEffect(() => {
+		if (state.gameReset) {
+			setShuffledIcons(shuffle(icons));
+		}
+	}, [state.gameReset]);
+
+	// generate cards for the game [shuffledIcons]
 	useEffect(() => {
 		// convert card array to object
 		const mapCardsToObject = (array) => {
@@ -45,9 +52,9 @@ function Cards({ gameStart, gameOver, setGameOver, setGameStart }) {
 		}
 	}, [shuffledIcons]);
 
-	// turn over all cards when game starts
+	// turn over all cards when game starts [gameStart]
 	useEffect(() => {
-		if (gameStart) {
+		if (state.gameStart) {
 			setGameCards((cards) =>
 				cards.map((card) => ({
 					...card,
@@ -55,9 +62,9 @@ function Cards({ gameStart, gameOver, setGameOver, setGameStart }) {
 				}))
 			);
 		}
-	}, [gameStart]);
+	}, [state.gameStart]);
 
-	// keep track of open cards
+	// keep track of open cards [openCards]
 	useEffect(() => {
 		// check if cards match
 		const checkCardsMatch = () => {
@@ -99,17 +106,17 @@ function Cards({ gameStart, gameOver, setGameOver, setGameStart }) {
 		}
 	}, [openCards]);
 
-	// keep track of gameCards
+	// keep track of gameCards [gameCards, setGameOver]
 	useEffect(() => {
 		const cardsLeft = gameCards.filter((cards) => !cards.removed);
 		if (cardsLeft.length === 2) {
-			setGameOver(true);
+			dispatch({ type: 'OVER', payload: true });
 		}
-	}, [gameCards, setGameOver]);
+	}, [gameCards, dispatch]);
 
-	// when game is over
+	// when game is over [gameOver]
 	useEffect(() => {
-		if (gameOver) {
+		if (state.gameOver) {
 			// reveal the last 2 cards
 			setGameCards((gameCards) =>
 				gameCards.map((card) => ({
@@ -126,9 +133,10 @@ function Cards({ gameStart, gameOver, setGameOver, setGameStart }) {
 						removed: true,
 					}))
 				);
+				dispatch({ type: 'RESET', payload: true });
 			}, 2000);
 		}
-	}, [gameOver]);
+	}, [state.gameOver, dispatch]);
 
 	// when a cards is clicked
 	const handelCardClick = (key) => {

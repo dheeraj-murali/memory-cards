@@ -1,26 +1,64 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import Cards from './Cards';
 
+const initialState = {
+	gameStart: false,
+	gameOver: false,
+	gameReset: false,
+};
+
+const reducer = (state, action) => {
+	switch (action.type) {
+		case 'START':
+			return {
+				...state,
+				gameStart: action.payload,
+			};
+		case 'OVER':
+			return {
+				...state,
+				gameOver: action.payload,
+			};
+		case 'RESET':
+			return {
+				...state,
+				gameReset: action.payload,
+			};
+		case 'RESTART':
+			return {
+				...state,
+				gameStart: false,
+				gameOver: false,
+				gameReset: false,
+			};
+		default:
+			return state;
+	}
+};
+
 function Game() {
-	const [gameStart, setGameStart] = useState(false);
-	const [gameOver, setGameOver] = useState(false);
+	const [state, dispatch] = useReducer(reducer, initialState);
 
 	return (
 		<div className='game-container'>
 			<div
-				className={gameStart ? 'overlay hidden' : 'overlay'}
+				className={state.gameStart ? 'overlay hidden' : 'overlay'}
 				onClick={() => {
-					if (!gameStart) {
-						setGameStart(true);
+					if (!state.gameStart) {
+						dispatch({ type: 'START', payload: true });
 					}
 				}}
 			></div>
-			<Cards
-				gameStart={gameStart}
-				gameOver={gameOver}
-				setGameOver={setGameOver}
-				setGameStart={setGameStart}
-			/>
+			{state.gameReset ? (
+				<button
+					className='btn'
+					onClick={() => dispatch({ type: 'RESTART' })}
+				>
+					Reset
+				</button>
+			) : (
+				<Cards state={state} dispatch={dispatch} />
+			)}
 		</div>
 	);
 }

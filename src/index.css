@@ -140,6 +140,25 @@ body {
 	box-shadow: 5px 5px 5px 0px rgba(167, 114, 0, 0.336);
 }
 
+.btn {
+	text-decoration: none;
+	color: #414345;
+	background-color: #ffe08262;
+	border-color: #ffca28;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 0.3rem;
+	margin-top: 2rem;
+	padding: 0.6rem 0.9rem;
+	font-size: 0.9rem;
+	z-index: 5;
+}
+
+.btn:hover {
+	background-color: #ffe082;
+	cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
 	body .game-container {
 		-webkit-transform: scale(0.67);
