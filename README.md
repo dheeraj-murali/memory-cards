@@ -4,12 +4,25 @@ A simple memory card game made in reactjs
 
 # Play by running
 
+## Using npm
+
 ```bash
+# install dependencies
 npm install
+# run app in locat
 npm start
 ```
 
-# demo
+## Using yarn
+
+```bash
+# install dependencies
+yarn install
+# run app in locat
+yarn start
+```
+
+# Demo
 
 ![demo](demo.gif)
 
