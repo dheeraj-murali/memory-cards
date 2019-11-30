@@ -159,6 +159,19 @@ body {
 	cursor: pointer;
 }
 
+.btn-big {
+	padding: 1.2rem 1.5rem;
+	font-size: 2rem;
+}
+
+@media only screen and (max-width: 800px) {
+	body .game-container {
+		-webkit-transform: scale(0.87);
+		-moz-transform: scale(0.87);
+		transform: scale(0.87);
+	}
+}
+
 @media only screen and (max-width: 600px) {
 	body .game-container {
 		-webkit-transform: scale(0.67);
@@ -167,10 +180,18 @@ body {
 	}
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
 	body .game-container {
 		-webkit-transform: scale(0.57);
 		-moz-transform: scale(0.57);
 		transform: scale(0.57);
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	body .game-container {
+		-webkit-transform: scale(0.47);
+		-moz-transform: scale(0.47);
+		transform: scale(0.47);
 	}
 }

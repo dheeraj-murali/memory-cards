@@ -51,10 +51,10 @@ function Game() {
 			></div>
 			{state.gameReset ? (
 				<button
-					className='btn'
+					className='btn btn-big'
 					onClick={() => dispatch({ type: 'RESTART' })}
 				>
-					Reset
+					Play Again
 				</button>
 			) : (
 				<Cards state={state} dispatch={dispatch} />
