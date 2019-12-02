@@ -100,8 +100,10 @@ function Cards({ state, dispatch }) {
 		};
 
 		// if open card length is 2, check if cards match
-		if (openCards.length > 2) {
-			checkCardsMatch();
+		if (openCards.length === 2) {
+			setTimeout(() => {
+				checkCardsMatch();
+			}, 1000);
 		}
 	}, [openCards]);
 
@@ -133,30 +135,32 @@ function Cards({ state, dispatch }) {
 					}))
 				);
 				dispatch({ type: 'RESET', payload: true });
-			}, 2000);
+			}, 1000);
 		}
 	}, [state.gameOver, dispatch]);
 
 	// when a cards is clicked
 	const handelCardClick = (key) => {
-		// turn the cards
-		setGameCards((cards) =>
-			cards.map((card, index) => {
-				if (key === index) {
+		// turn the cards if more than 2 cards is not open
+		if (openCards.length < 2) {
+			setGameCards((cards) =>
+				cards.map((card, index) => {
+					if (key === index) {
+						return {
+							...card,
+							hidden: !card.hidden,
+						};
+					}
 					return {
 						...card,
-						hidden: !card.hidden,
 					};
-				}
-				return {
-					...card,
-				};
-			})
-		);
+				})
+			);
 
-		if (!cardPresent(gameCards[key])) {
-			// add cards to open list
-			setOpenCards([...openCards, gameCards[key]]);
+			if (!cardPresent(gameCards[key])) {
+				// add cards to open list
+				setOpenCards([...openCards, gameCards[key]]);
+			}
 		}
 	};
 

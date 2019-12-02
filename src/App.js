@@ -6,13 +6,14 @@ function App() {
 		<div className='App'>
 			<Game />
 			<a
-				href='https://github.com/dheeraj-murali/memory-cards'
-				className='btn'
+				href='https://github.com/dheeraj-murali/memory-cards/issues'
+				className='btn btn-small'
 				target='_blank'
 				rel='noopener noreferrer'
 			>
-				View on GitHub
+				View on Github
 			</a>
+			<span className='version'>v0.8.6</span>
 		</div>
 	);
 }
